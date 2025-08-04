@@ -1,4 +1,4 @@
-import { User } from "./users.Model.js";
+import { User } from "./user.Model.js";
 import createHttpError from "http-errors";
 
 const createUser = async (req, res, next) => {
@@ -33,6 +33,8 @@ const createUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    
+
     const user = await User.findOne({
       email,
     });

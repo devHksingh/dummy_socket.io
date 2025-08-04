@@ -1,5 +1,10 @@
 import express from "express";
 import authMiddleware from "../middleware/auth.js";
+import {
+  createUser,
+  loginUser,
+  findUserByNameOrEmail,
+} from "./user.Controller.js";
 
 const userRouter = express.Router();
 
