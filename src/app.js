@@ -3,7 +3,7 @@ import cors from "cors";
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import userRouter from "./user/users.Route.js";
 import chatRouter from './chat/chat.Route.js'
-// import messageRouter from "./message/message.Route.js";
+import messageRouter from './message/message.Route.js'
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/chats", chatRouter);
-// app.use("/api/v1/messages", messageRouter);
+app.use("/api/v1/messages", messageRouter);
 
 app.use(globalErrorHandler);
 export default app;
