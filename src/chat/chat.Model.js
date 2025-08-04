@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+/*
+for roomId
+i will create like user1EmialId-user2EmailId
+
+*/
+
 const chatSchema = new mongoose.Schema(
   {
     participants: [
@@ -11,3 +17,5 @@ const chatSchema = new mongoose.Schema(
 );
 
 export const Chat = mongoose.model("Chat", chatSchema);
+
+
