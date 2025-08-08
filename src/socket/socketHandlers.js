@@ -8,6 +8,7 @@ export const handleConnection = (io, socket) => {
   // Store user in online users map
   socket.userId = socket.user._id.toString();
   socket.userEmail = socket.user.email;
+  socket.userName = socket.user.name; // Add userName to socket
 
   // Join user to their personal room for direct messaging
   socket.join(`user_${socket.userId}`);
@@ -56,6 +57,7 @@ export const handleConnection = (io, socket) => {
       socket.to(actualRoomId).emit("user_joined", {
         userId: socket.userId,
         userEmail: socket.userEmail,
+        userName: socket.userName, // Add userName here too
       });
       
       // Send confirmation to the user
@@ -84,6 +86,7 @@ export const handleConnection = (io, socket) => {
     socket.to(roomId).emit("user_left", {
       userId: socket.userId,
       userEmail: socket.userEmail,
+      userName: socket.userName, // Add userName here too
     });
   });
 
@@ -180,17 +183,22 @@ export const handleConnection = (io, socket) => {
     }
   });
 
-  // Handle typing indicators
+  // Handle typing indicators - FIXED: Now includes userName
   socket.on("typing_start", ({ roomId }) => {
+    console.log(`⌨️ ${socket.userName || socket.userEmail} started typing in room: ${roomId}`);
     socket.to(roomId).emit("user_typing", {
       userId: socket.userId,
       userEmail: socket.userEmail,
+      userName: socket.userName, // Add userName to typing event
     });
   });
 
   socket.on("typing_stop", ({ roomId }) => {
+    console.log(`⌨️ ${socket.userName || socket.userEmail} stopped typing in room: ${roomId}`);
     socket.to(roomId).emit("user_stopped_typing", {
       userId: socket.userId,
+      userEmail: socket.userEmail,
+      userName: socket.userName, // Add userName to stop typing event too
     });
   });
 
@@ -249,6 +257,7 @@ export const handleConnection = (io, socket) => {
         socket.to(roomId).emit("user_disconnected", {
           userId: socket.userId,
           userEmail: socket.userEmail,
+          userName: socket.userName, // Add userName to disconnect event
         });
       }
     });
