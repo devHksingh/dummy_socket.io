@@ -71,7 +71,8 @@ const loginUser = async (req, res, next) => {
 const findUserByNameOrEmail = async (req, res, next) => {
   try {
     const { query } = req.params;
-
+    console.log("Search query:", query);
+    
     if (!query) {
       return res.status(400).json({
         success: false,

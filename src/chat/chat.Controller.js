@@ -57,7 +57,7 @@ const allChatRooms = async (req, res, next) => {
       participants: {
         $in: [user._id],
       },
-    });
+    }).populate("participants", "-password");
     return res.status(200).json({
       message: "Fetched all chat rooms successfully ",
       chatRooms: allChatRoom,
