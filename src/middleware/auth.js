@@ -35,6 +35,8 @@ const authMiddleware = (req, res, next) => {
     }
     req.user = userDetails; // Attach user details to the request object
     console.log("req.user", req.user);
+    console.log("✅ User authenticated ---------:", req.user.email);
+    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
     console.log("token error", error);
